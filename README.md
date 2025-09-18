@@ -64,9 +64,9 @@ xelatex main.tex
 
 Bu tez aşağıdaki kişiler tarafından ortaklaşa tamamlanmıştır:
 
-* Engin \[Soyadınız]
-* \[İkinci Üye Adı]
-* \[Üçüncü Üye Adı]
+* Engin Kaya
+* Taha Ramazan Uysal
+* İdrishan Kanberi
 
 ---
 
