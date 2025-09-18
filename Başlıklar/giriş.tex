@@ -1,0 +1,367 @@
+\section{GİRİŞ}
+
+
+\begin{comment}
+Giriş bölümünde çalışmanın genel bir tarifi verilir, konusu, amacı,
+çalışma kapsamı, yöntem ve aşamalar özetlenir. Alt başlıklar verilerek
+detaylandırılır ve daha detaylı açıklamalar yapılır. Örneğin
+\textbf{1.1. Genel Bilgiler} alt başlığı altında
+
+\begin{itemize}
+\item
+  \begin{quote}
+  Yapılan çalışmanın genel bir tarifi verilmelidir
+  \end{quote}
+\item
+  \begin{quote}
+  Bu konunun neden seçildiği açıklanmalıdır
+  \end{quote}
+\item
+  \begin{quote}
+  Bu çalkışma sonucunda ilgili konuya sağlanacak yeniliklerden
+  bahsedilmelidir.
+  \end{quote}
+\item
+  \begin{quote}
+  Bu konunun ya da uygulamanın günümüzde nerelerde nasıl ve niçin
+  kullanıldığı bilgileri verilmelidir
+  \end{quote}
+\end{itemize}
+\end{comment}
+
+
+Nesnelerin interneti terimi genellikle ağ bağlantısının ve bilgi işlem kapasitesinin normalde bilgisayar olarak kabul edilmeyen nesnelere, sensörlere ve günlük eşyalara kadar uzandığı ve bu cihazların asgari insan müdahalesiyle veri üretmesine, alışverişinde bulunmasına ve tüketmesine olanak tanıyan senaryoları ifade eder. Ancak tek bir evrensel tanım yoktur [1].
+
+Nesnelerin interneti konseptindeki teknolojik aletler, hedef ettikleri işlevleri yerine getirmek için kullandıkları algoritmalar için çeşitli sensörler ve bilgi iletim araçlarına ihtiyaç duyarlar. Aynı zamanda bu sensörler ile bilgi oluşturup diğer bilgisayarlara iletme kabiliyetine sahiptirler. Bu bilgi oluşturma kabiliyetleri sayesinde Nesnelerin interneti konseptindeki ürünler veri oluşturma yetenekleri nedeniyle büyük veri için önemli birer kaynaktırlar.  [2].
+
+Nesnelerin interneti kavramının önemi günümüzde büyük veri ve yapay zeka teknolojilerine olan eğilim ile paralel olarak artmaktadır. Transforma Insights araştırma şirketi, Nesnelerin interneti pazarının büyüklüğünün 2033 yılında 934.2 milyar dolara ulaşacağını öngörmektedir [3].
+
+Bu çalışmada bir insanın LDR üzerine düşen gölgesinin, ilgili insanın şekil ve hız farklarından dolayı farklı gölge karakteristikleri yaratacağı ve bu gölgelerin aynı kişi üzerindeki örneklerde tutarlı oluşacağı, diğer insanlarda ise farklı bir insanın geçtiğini anlamamıza yetecek kadar varyans oluşturacağı varsayımıyla bir kişi tanıma devresinin yapımının mümkünlüğü araştırılmaktadır.
+
+Bu araştırdığımız kişi tanıma devresi, alacağı ışık verileri ile iletişime geçebilecek kabiliyette olup; bu veriyi bir sunucuda saklayabilir ve API gibi çeşitli yöntemlerle bu veriyi internet üstündeki, yerel ağın ötesine aktararak olası uygulamalar için mümkün kılacaktır. Proje kapsamında geliştirilen model, LDR sensörleri aracılığıyla elde edilen verileri örneklemekte ve bu örnekleri önceden eğitilmiş bir yapay zeka modeline uygulamaktadır. Model, sensör önünden geçen bireyin İdrishan Kanber veya Engin Kaya olup olmadığını sınıflandırmakta ve bu sonucu Bluetooth modülü aracılığıyla dış sistemlere iletmektedir. Önerilen ve araştırılan devrenin, maliyet bakımından rekabetçi olabilecek derecede küçük ve yeni insan sisteme tanıtıldığında anlamlı bir doğruluk seviyesine sahip olacak şekilde tasarımı hedeflenmektedir.
+
+\subsection{Literatür Araştırması}
+
+\begin{comment}
+Bu konuda başkaları tarafından yapılmış benzer araştırma, çalışma ve
+uygulamalar hakkında kaynak gösterilerek bilgi verilir.
+
+\begin{itemize}
+\item
+  \begin{quote}
+  Bu \emph{bölümde IEEE Xplore Digital library}, TÜBİTAK Turkish Journal
+  of Electrical Engineering \& Computer Sciences, YÖK Tez Kütüphanesi,
+  Uluslararası veya ulusal hakemli dersgiler ve KTÜ Tez Kütüphanesindeki
+  yayınlarından olmak üzere en az 5 yayına atıfta bulunulması
+  zorunludur. Bu atıflardan en az 2 tanesi İngilizce olmalıdır.
+  \end{quote}
+\end{itemize}
+\end{comment}
+
+
+Akıllı ortamların otomasyona hızla yönelmesiyle birlikte, insan hareketinin algılanması, enerji tasarruflu aydınlatma ve güvenlik sistemleri gibi uygulamalarda kritik bir bileşen haline gelmiştir. Geleneksel hareket algılama sistemleri genellikle Pasif Kızılötesi Direnç (PIR) sensörlere dayanırken, benzer amaçlarla Işığa Bağımlı Dirençler (LDR'ler) kullanılabilir. LDR’ler, ışık seviyelerindeki değişikliklere yanıt verdiği için, ışık değişimlerini yorumlamak için diğer sistemlerle birleştirildiğinde hareket algılama için uygun bir seçenek haline gelebilir. Bu literatür taraması, insan hareketinin algılanmasında LDR'lerin kullanımını, sensör teknolojisindeki, IoT entegrasyonundaki ve akıllı aydınlatma uygulamalarındaki son gelişmelerden yola çıkarak incelemektedir.
+
+IoT teknolojisinin entegrasyonu, akıllı aydınlatma sistemlerinde önemli ilerlemelere yol açmıştır. Atmaja ve arkadaşları (2021), çevresel faktörlere ve insana yanıt olarak hem LDR hem de PIR sensörleri kullanan bir IoT tabanlı sistem geliştirmiştir. IoT platformuna bağlanarak, sistem uzaktan izlenip kontrol edilebilmekte, böylece kullanıcı kolaylığı ve enerji verimliliği artmaktadır \cite{Atmaja_2021}. Çavaç ve Ahmad (2019) da güvenlik ve kontrol uygulamalarında IoT’yi kullanmış ve bu sistemlerin ışık seviyelerindeki veya hareketlerdeki değişimlere yanıt verecek şekilde yapılandırmıştır \cite{ccavacs2019review}. Bu inceleme, IoT'nin konut ve ticari alanlarda akıllı aydınlatma sistemlerine ölçeklenebilir çözümler sunduğunu göstermektedir.
+
+LDR'ler ve hareket sensörleri, adaptif aydınlatma kontrolünde temel bileşenler haline gelmiştir. Hapidin ve arkadaşları (2018), hareket algılama için insan hareketi nedeniyle meydana gelen hızlı ışık yoğunluğu değişikliklerini analiz ederek hareket algılamaya uyarlanabilecek LDR sensörlerini araştırmıştır \cite{8727728}. Bu çalışma, LDR'lerin, ışık bozulmalarını izleyerek dolaylı yoldan hareket algılayabileceğini ve gerçek zamanlı veri işleme ile insan varlığını özel olarak belirleyebileceğini öne sürmektedir. Mustafa ve arkadaşları (2023) ise LDR'lerin ışık değişikliklerine yanıt olarak gerilim ve direnç gibi elektriksel özelliklerine odaklanmış ve LDR'lerin hareket algılama için optimize edilmesinin temelini oluşturmuştur \cite{mustafa2023measuring}. Bu bulgular, LDR'lerin tipik olarak ortam ışık seviyelerini ölçmek için kullanıldığını, ancak ışık yoğunluğundaki değişikliklere olan duyarlılıklarının analitik bir çerçeve ile birleştirildiğinde hareket algılama için uyarlanabileceğini ortaya koymaktadır.
+
+
+Akıllı aydınlatma sistemlerinde hareket algılama, enerji verimliliği sağlamak açısından önemlidir. Khan ve arkadaşları (2021) ile Gurav ve arkadaşları (2018) tarafından yapılan çalışmalar, hareket algılama yoluyla enerji tüketimini önemli ölçüde azaltabilecek sokak aydınlatması sistemlerini incelemiştir \cite{khan2021movement, gurav2018movement}. Khan ve arkadaşları (2021), araçların veya insanların varlığına göre ışık seviyelerini ayarlayan bir sokak aydınlatma sistemini incelemiş ve \%70’e varan enerji tasarrufu sağlandığını göstermiştir. Gurav ve arkadaşları (2018) ise hareketi algılayarak gereksiz enerji kullanımını azaltmak için benzer bir ilkeye odaklanmıştır. Bu çalışmalar çoğunlukla PIR sensörleri içermesine rağmen, belirli bir ışık kaynağını bozan bir nesneyi algılamada LDR'lerin hareket dedektörleri olarak potansiyel rolünü vurgulamaktadır. Ek olarak, Kumar ve arkadaşları (2021), insan varlığına yanıt olarak ışık aktivasyonunu kontrol etmek için hem PIR hem de LDR sensörlerini kullanan Arduino tabanlı bir akıllı aydınlatma sistemi tasarlamıştır \cite{9667610}. Bu yaklaşım, özellikle düşük ışık senaryolarında, LDR'lerin daha duyarlı olabileceği yerlerde enerji tasarrufunu destekleyen ikincil sensörler olarak hizmet edebileceğini göstermektedir.
+
+
+Özellikle makine öğrenimi gibi ileri kontrol yöntemleri, kullanıcı konforu ve verimlilik sağlamak için akıllı aydınlatma sistemlerini optimize etme konusunda umut vaat etmektedir. Putrada ve arkadaşları (2022), akıllı aydınlatmada makine öğrenimi uygulamalarını incelemiş ve tahmin algoritmalarının aydınlatmayı kullanıcı alışkanlıklarına göre uyarlayabileceğini vurgulamıştır \cite{putrada2022machine}. Bu inceleme, esas olarak kullanıcı tercihlerini incelese de, makine öğrenimi aynı zamanda ışık yoğunluğu dalgalanmalarındaki kalıpları analiz ederek LDR'ler ile insan hareketi algılamada da uygulanabilir. Modelleri belirli hareket kalıplarını tanımak için eğiterek, LDR tabanlı sistemler insan hareketi ile diğer ışık değişiklikleri arasında ayrım yapabilir. Hossain (2024) de büyük veri setlerini işlemek için ESP8266 kullanan ölçeklenebilir bir aydınlatma sistemini desteklemekte ve LDR sensörlerini IoT tabanlı bir kontrol ile birleştirmektedir \cite{10596146}. Bu yapılandırma, insan hareketine karşılık gelen ışık değişimlerini analiz etmek için uyarlanabilir ve daha akıllı ve daha duyarlı bir aydınlatma sistemi oluşturabilir.
+
+
+
+Son araştırmalar, IoT ve makine öğrenimi teknolojileriyle birlikte kullanıldığında LDR'lerin insan hareketini algılamadaki potansiyelini vurgulamaktadır. PIR gibi geleneksel hareket sensörleri akıllı aydınlatmada yerini almışken, LDR'ler, hareket göstergesi olarak ışık bozulmalarından yararlanarak bir alternatif sunmaktadır. Gelecek çalışmalar, LDR tabanlı hareket algılama için analitik çerçevelerin geliştirilmesine odaklanabilir, insan ve insan dışı bozulmalar arasında ayrım yapabilecek makine öğrenimi tekniklerini içerebilir. Ayrıca, birden fazla LDR sensöründen gelen veriyi işlemek için ölçeklenebilir IoT çerçevelerinin geliştirilmesi, gerçek dünya uygulamalarında doğruluğu artırabilir. Bu durum, LDR tabanlı hareket algılama için akıllı şehirler, otomatik aydınlatma ve güvenlik sistemleri gibi alanlarda potansiyel kullanım alanları açmaktadır.
+
+
+
+
+\subsection{Özgünlük}
+
+\begin{comment}
+Çalışmamızın özgünlüğü, LDR kullanılarak yapılan bir kisi tespit modülünün olmamasıdır. Genelde kisi tespitinde RFID kartlar kullanılarak önceden kodlanmış şifre-anahtar çiftleri oluşturulur ve bu sistemlerin tanıyabileceği kişi sayısı, sistemin kurulumu ve güncellenmesi anındaki kişilerle sınırlıdır. Bu projede ise hem derin öğrenme temelli yapay zeka kullanılarak yeni teknolojiler literatüre kazandırılmış hem de modül derin öğrenme ile çalıştığı için yeni bir çevrede de zamanla daha yüksek bir doğruluk seviyesine ulaşacak şekilde kişi tespiti yapabilir hale olacaktır.
+\end{comment}
+
+Nesne veya kişi tanıma sistemleri bilgiyi yorumlayarak ilgili nesne ve/veya kişileri sınıflandırmayı amaçlayan sistemlerdir. Nesne tanıma sistemleri genellikle radyo frekansı eşleştirme ve doğrulama esasına dayanan RFID/NFC kartları veya video kamera kullanılarak görüntüde istenilen nesne olup olmadığını kontrol eden yapay zeka algoritmaları ile gerçekleştirilmektedir. 
+
+Bu sistemler, görüntü verilerinin işlenmesi yoluyla nesnelerin veya kişilerin tespit edilmesini, tanımlanmasını ve izlenmesini amaçlar. Bununla beraber J. M. Gandarias, A. J. García-Cerezo ve J. M. Gómez-de-Gabriel'in yaptığı örnek çalışmada \cite{CNN_object} dokunsal, H. Ruser'in çalışmasında \cite{IoTBig} infrared sensör dizisi gibi değişik sensör türleri ve oryantasyonları kullanılmaktadır.  
+
+Bu çalışma, insan hareket algılama alanında, bireysel özelliklerin tanımlanmasında Işığa Bağımlı Dirençler'in (LDR) kullanımını araştırarak, genel olarak Pasif Kızılötesi (PIR) ve ultrasonik sensörler gibi hareket sensörleriyle gerçekleştirilen bir alana yenilikçi bir yaklaşım getirmektedir. Daha önce yapılmış çalışmalara kıyasla, bu sistemin özgünlüğü, LDR'lerin ışık yoğunluğundaki ince değişimlere duyarlılığından yararlanarak bireyleri ayırt edebilme yeteneğidir.
+
+Bu çalışmanın özgünlüğü, LDR kullanarak kişi tespiti üzerine yapılan başka bir çalışma olmamasıdır. Önerilen sistem, bireylerin tanımlanmasında yüksek hassasiyet sağlama potansiyeline sahiptir. Bu ayrıntılı algılama düzeyi, güvenlik gerektiren alanlarda ve belirli bireylerin geçtiği ortamlarda önemli bir bağlamsal anlayış sunmaktadır.
+
+Ek olarak, bu araştırma daha karmaşık algılama sistemlerine kıyasla maliyet açısından etkili bir alternatif sunmaktadır. LDR'ler, hem uygun maliyetli hem de enerji verimliliği ile bilinir; bu nedenle, çalışma, akıllı bina çözümleri ve gelişmiş güvenlik protokolleri gibi uygulamalara yönelik yenilikçi bir perspektif getirmektedir.
+
+Sonuç olarak, bu çalışma, özgün bir yaklaşım sunarak alanında önemli bir katkı sağlamayı hedeflemektedir.
+
+\subsection{Yöntem}
+
+\begin{comment}
+Tasarım ve Bitirme projesinin tüm aşamalarında (fikrin oluşması,
+literatür taraması, tasarım, simülasyon ve gerçekleme) hangi yöntemlerin
+nasıl kullanılacağı bu başlık altında kısaca açıklanmalıdır. Detayları
+ise ilgili kısımlara ait başlıklar altında verilmelidir.
+\end{comment}
+
+Projenin ilk fikri, danışman Prof. Dr. İsmail Kaya tavsiyesiyle oluşmuştur. Projemiz yapım aşamasındayken; öğrendiklerimiz ve farkına vardıklarımız ile beraber, diğer tüm projelerde olduğu gibi, gelişmiştir.
+
+Literatür taraması, projeyle ilgili olarak LDR sensörü ve özellikleri, kullanılan STMH32 mikroişlemcisinin kabiliyetleri ve yapay zeka oluşturmak için gerekli kodlama bilgisi ile beraber oluşturulan yapay zekanın güvenilirliğini arttırmak için gerekli matematiksel ve istatistiksel bilgi üstüne; akademik geleneğe uygun makaleler ve dokümanlarla yapılmıştır.
+
+Tasarım aşamasında, edindiğimiz teknik bilgi ve yöntemlere bağlı olarak devrenin kurulumu ile alakalı spesifik bilgiler içeren:
+\begin{itemize}
+    \item Devrenin model bilgileri
+    \item elektriksel bağlantılarını gösteren bir 2 boyutlu  model olacaktır.
+\end{itemize}
+
+Simulasyon kısmında yazılan yapay zeka algoritmasının güvenilirlik oranını ölçen veri setleri ve uygulamalar yer alacaktır.
+
+
+\subsection{Yaygın Etki}
+
+\begin{comment}
+Yapılan çalışma ya da proje tamamlandığında sağlayacağı faydalar ne
+olacaktır? Ulusal ve uluslararası bazda veya yerel olarak hangi soruna
+çözüm getirecektir? Hangi yönleri ile dikkat çekecektir? İstihdam,
+üretim, ekonomi, sağlık, çevre ve sosyal yönden ne gibi etkileri
+olabilecektir? Yayın çıkarma potansiyeli var mıdır? Nerelerde
+yayınlanabilir?
+\end{comment}
+
+Tamamlanan proje ile oluşan düşük maliyetli ve yüksek doğruluk oranına sahip bir kişi tespit cihazının kapılarda, içeriye giriş veya dışarıya çıkış karakteristiği ile kişi tanıma görevlerinde kullanılması beklenmektedir.
+
+Bir kapıdaki dışarı çıkmadaki hız değişimi karakteristiği, oradaki acil durum hakkında bir fikir verebileceği için diğer IoT nesneleri ile beraber risk yönetiminde kullanılmasını amaçlanmaktadır.
+
+Bu çalışmanın tasarımı, Karadeniz Teknik Üniversitesi Mühendislik Fakültesi Elektrik-Elektronik Mühendisliği Bölümündeki öğrencilere ve öğretim üyelerinden oluşan bir jüriye sunulacak ve tüm katılımcılar bu konuda bilgilendirilecektir. Tasarlanan bu projenin prototipi tamamlandığında, yine aynı bölümde tüm bölüm ve üniversite personeline “Düşünden Gerçeğine Bitirme Projeleri Sergisi” ve diğer üniversitelerde yer aldığı “KTÜ Düşünden Gerçeğine Proje Pazarında” sergilenecektir. 
+
+\subsection{Standartlar}
+
+\begin{comment}
+Yapılan çalışmada uyulması gereken ve uyulan standartlar numaraları ve
+standart adları ile bu ayrıtta sıralanmalıdır. Örneğin X konusunda
+standartlar gerekiyorsa Google tarama motoruna ``Standards in X''
+yazıldığında o konu ile ilgili çok sayıda standart karşınıza çıkacaktır.
+Bunları inceleyip uygun olanlarını burada sıralayınız. Özellikle TSE,
+IEC ve IEEE standartlarını araştırınız.
+\end{comment}
+
+\begin{itemize}
+    \item IEC 60559:2020 Mikroişlemciler \cite{IEC_60559_2020}
+    \item IEC 60824: 1988 Standartı (Mikroişlemci terminolojisi) \cite{IEC_60824_1988}
+    \item TS EN IEC 62368-1 Ses/görüntü, bilgi ve iletişim teknolojileri donanımı - Bölüm 1: Güvenlik kuralları \cite{TS_EN_IEC_62368_1}
+    \item TS ISO/IEC 25010 	Sistem ve yazılım mühendisliği - Sistem ve yazılım Kalite Gereklilikleri ve Değerlendirme (SQuaRE) - Ürün kalite modeli \cite{TS_ISO_IEC_25010}
+    \item IEEE 1016-2009: Yazılım Tasarım Tanımlamaları \cite{IEEE_1016_2009}
+    \item 	TS ISO/IEC 25019 Sistem ve yazılım mühendisliği - Sistem ve yazılım Kalite Gereklilikleri ve Değerlendirme (SQuaRE) - Kullanımda kalite modeli \cite{TS_ISO_IEC_25019}
+    \item IEC 61508: Fonksiyonel Güvenlik \cite{IEC_61508}
+\end{itemize}
+
+\subsection{Çalışma Takvimi}
+
+Mühendislik tasarımı projesi sürecinde izlenecek yol iş-zaman grafiği
+olarak \ref{table:işzaman}de verilmiştir. Her iş paketinin sorunsuz bir şekilde ilerlemesi ve çalışmanın aksamaması adına gerekli zaman aralıkları belirlenmiştir.
+Potansiyel risklerle karşılaşılması durumunda, planın sürdürülebilirliği için \ref{tabel:riskanalizi}deki risk analizi yapılarak B planları oluşturulmuştur. Bu sayede, herhangi bir olası sorunun etkilerini minimize etmek ve çalışmanın başarıyla tamamlanmasını sağlamak amacıyla
+proaktif önlemler alınmıştır. 
+
+\begin{comment}
+Giriş bölümünün sonuna bu başlık altında bir çalışma planı konur. Bu
+çalışma planı bir iş-zaman grafiği şeklinde düzenlenir. İş-zaman
+grafiğinde tanımlanan iş paketlerinde kimlerin görev alacağı ve neler
+yapılacağı kısaca özetlenir. Her bir iş paketi tamamlandığında nelerin
+elde edileceği birkaç cümle ile kısaca açıklanır.
+
+Takımdaki öğrencilerin her biri en az bir iş paketinde lider olacak
+şekilde işl paketlerindeki görevler paylaşılır. Bir iş paketinden
+sorumlu öğrenci o iş paketinin planlanan sürede planlanan sonuçla
+tamamalanmasını sağlayacak şekilde diğer öğrencilerin yaptıklarını takip
+eder ve iş paketinin tamamlanmasını sağlar.
+
+İş paketlerinde yapılacak işlemlerde aksama olması halinde ilerlemenin
+aksamaması için bir B planı oluşturulmalı ve her bir iş paketine bir de
+B planı eklenmelidir. Aksama olmayacağından emin olunan iş paketleri
+için B planı gerekmez. Ancak aksama yaşanabilecek durumlar için B planı
+oluşturulmalı ve projenin belirlenen zamanda tamamlanması sağlanmalıdır.
+Örnek bir İş-Zaman grafiği Çizelge 1.1. de verilmektedir.
+\end{comment}
+
+\begin{landscape}
+\captionsetup{justification=raggedright, singlelinecheck=false}
+\begin{longtable}[l]{|c|>{\RaggedRight\arraybackslash}p{5cm}|>{\RaggedRight\arraybackslash}p{4cm}|c|>{\RaggedRight\arraybackslash}p{6.5cm}|}
+\caption{İş-Zaman Çizelgesi} \label{table:işzaman} \\
+\hline
+\textbf{İP No} & \textbf{İş Paketinin Adı ve Amacı} & \textbf{Kimler Tarafından Çalışıldığı} & \textbf{Zaman Aralığı} & \textbf{Projeye Katkısı} \\
+\hline
+\endfirsthead
+
+% This is the caption and header for all pages after the first
+\caption[]{İş-Zaman Çizelgesi (devam)} \\
+\hline
+\textbf{İP No} & \textbf{İş Paketinin Adı ve Amacı} & \textbf{Kimler Tarafından Çalışıldığı} & \textbf{Zaman Aralığı} & \textbf{Projeye Katkısı} \\
+\hline
+\endhead
+
+
+1 & Proje fikrinin oluşturulması, literatür araştırması ve özgün fikrin ortaya çıkarılması & 
+\begin{tabular}[t]{@{}l@{}}
+Taha Ramazan Uysal (L) \\
+Engin Kaya \\
+İdrishan Kanber
+\end{tabular} & 
+Ekim 2024 & 
+Proje fikri oluşturulup, özgünlük literatür araştırmasıyla desteklenir. Özgün fikrin oluşması sonraki adımlarda neler yapılacağını da netleştirir. \\ \hline
+
+2 & Uygulanacak yöntemlerin belirlenmesi ve ilgili teorik çalışmaların yapılması. Tasarım aşamasına geçilmesi &
+\begin{tabular}[t]{@{}l@{}}
+Engin Kaya (L) \\
+Taha Ramazan Uysal \\
+İdrishan Kanber
+\end{tabular} &
+Ekim-Kasım 2024 &
+Uygulanacak yöntemler teorik açıklamalarla desteklenir. Tasarıma devam edilebilmesi teorik bilgi yeterliliğine bağlıdır. \\ \hline
+
+3 & Tasarım hesaplamalarının ve çizimlerin tamamlanması, mali analiz yapılıp bütçe oluşturulması ve hukuki sorumlulukların araştırılması &
+\begin{tabular}[t]{@{}l@{}}
+İdrishan Kanber (L) \\
+Engin Kaya \\
+Taha Ramazan Uysal
+\end{tabular} &
+Kasım-Aralık 2024 &
+Projenin tasarım hesapları ve teknik çizimleri yapılır. Kutu bileşenlerinin boyutlarına göre bağlantı diyagramları oluşturulur. Bağlantı diyagramları prototipin çalışma göstergesidir. \\ \hline
+
+4 & Simülasyon modelinin oluşturulup simülasyonların yapılması, sonuçların değerlendirilmesi ve Mühendislik Tasarımı kitabının yazılması &
+\begin{tabular}[t]{@{}l@{}}
+Engin Kaya (L) \\
+Taha Ramazan Uysal \\
+İdrishan Kanber
+\end{tabular} &
+Aralık 2024 - Ocak 2025 &
+Tasarlanan sistemin simülasyon modeli oluşturulup, paket programlar veya geliştirilecek yazılımlarla simülasyonu yapılır. Simülasyon, prototipin çalışıp çalışmayacağının önceden bilinmesini sağlayacağından önemlidir. \\ \hline
+
+5 & Dönemsonu sınavları ve Mühendislik Tasarımı sunumlarının yapılması &
+\begin{tabular}[t]{@{}l@{}}
+Taha Ramazan Uysal (L) \\
+İdrishan Kanber \\
+Engin Kaya
+\end{tabular} &
+Ocak 2025 &
+Hazırlanan Mühendislik Tasarımı jürisi tarafından sunumlar sırasında değerlendirilir. Mühendislik Tasarımı Bitirme Projesinin ön koşulu olduğundan sunumları başarıyla tamamlamak önemlidir. \\ \hline
+
+6 & Prototip üretimi için gerekli malzeme siparişlerinin verilmesi ve prototip üretimine başlanması &
+\begin{tabular}[t]{@{}l@{}}
+Taha Ramazan Uysal (L) \\
+Engin Kaya \\
+İdrishan Kanber
+\end{tabular} &
+Ocak-Şubat 2025 &
+Projede kullanılacak malzemenin temini önemli bir aşamadır. Malzemeler temin edilemezse proje gerçekleşemez. \\ \hline
+
+7 & Prototip imalatı için gerekli elektrik-elektronik devrelerin tasarıma uygun şekilde oluşturulması &
+\begin{tabular}[t]{@{}l@{}}
+Engin Kaya (L) \\
+İdrishan Kanber
+\end{tabular} &
+Şubat-Mart-Nisan 2025 &
+Gerçekleştirilecek olan sistemin bağlantı diyagramlarının bağlantılarının doğru yapılması projenin devamını sağlayacağından önemlidir. \\ \hline
+
+8 & Prototip Montajlarının tamamlanıp testlerin yapılması, test sonuçlarının değerlendirilmesi &
+\begin{tabular}[t]{@{}l@{}}
+İdrishan Kanber \\
+Taha Ramazan Uysal (L) \\
+Engin Kaya
+\end{tabular} &
+Mart-Mayıs 2025 &
+Montaj işlerinin tamamlanması testlerin yapılabilmesi açısından gereklidir. Test sonuçları da yapılan çalışmanın amacına ulaşıp ulaşmadığının bir göstergesi olarak önemlidir. \\ \hline
+
+9 & Bitirme Projesi kitabının yazılıp teslim edilmesi &
+\begin{tabular}[t]{@{}l@{}}
+Taha Ramazan Uysal \\
+Engin Kaya \\
+İdrishan Kanber (L)
+\end{tabular} &
+Mayıs-Haziran 2025 &
+Yapılan çalışmaların uygun formatta yazılıp anlatılması projenin sonuç raporu açısından önemlidir. İyi hazırlanamayan proje kitabı projenin tamamlanmasına engel olabilir. \\ \hline
+
+10 & Dönemsonu sınavları, Bitirme Projesi Sergisi ve sunumlarının yapılıp projenin tamamlanması &
+\begin{tabular}[t]{@{}l@{}}
+Engin Kaya \\
+İdrishan Kanber \\
+Taha Ramazan Uysal (L)
+\end{tabular} &
+Haziran 2025 &
+Bitirme Projesi Sergisinde yapılan prototip çalışır vaziyette sergilenir ve jüri tarafından değerlendirilir. Geçer puan alınması gerekir. \\ \hline
+
+\end{longtable}
+\end{landscape}
+
+\begin{table}[h!]
+\captionsetup{justification=raggedright, singlelinecheck=false}
+\centering
+\caption{Risk Analizi ve B Planları} \label{tabel:riskanalizi}
+\begin{tabular}{|c|p{6cm}|p{7cm}|}
+\hline
+\textbf{İP No} & \textbf{En Önemli Riskler} & \textbf{Risk Yönetimi (B Planı)} \\
+\hline
+1 & Konu hakkında yeterli bilginin oluşamaması, ulaşılabilir kaynakların yetersiz bulunması & Akademik danışmanlardan ve çevrimiçi kütüphanelerden destek alınacaktır. \\
+\hline
+2 & Yanlış veri kullanımı: Hatalı, eksik veya yanlı veriler kullanmak algoritmanın doğruluğunu olumsuz etkileyebilir.  \newline Algoritma karmaşıklığı: Fazla karmaşık algoritmalar hesaplama maliyetini artırabilir ve uygulanabilirliği zorlaştırabilir. \newline Ölçeklenebilirlik problemleri: Algoritmanın veri boyutu arttığında performansını koruyamaması & Veriler normalize edilir ve cihaz tasarımı, alacağı verinin belirlenen standartlarla uyacak şekilde yapılır. \newline Kullanılabilecek algoritmalar araştırılır, karşılaştırılır ve en uygun olanı seçilir. \newline Algoritma küçük bir pilot veri setinde test edilir ve diğer veri setleri normalize edildikten sonra sisteme entegre edilir. \\
+\hline
+3 & Hukuki sorumlulukların karmaşıklığı & Hukuki sorumlulukları azaltmak için sistemin gerekli modifikasyonları yapılır. \\
+\hline
+4 & Simülasyonda istenilen değerin alınmaması & Simülasyon parametreleri gözden geçirilir, daha gelişmiş simülasyon programları kullanılır ve gerekirse tasarım değiştirilir. \\
+\hline
+5 & Sunumun yeterli beğeniyi almaması & Sunum, eleştiriler dikkate alınarak yeniden hazırlanır. \\
+\hline
+6 & Bütçenin planlanan bütçeyi aşması \newline İstenilen modül ve malzemelerin pazarda bulunamaması & Kullanılması hedeflenen kaynaklar daha ucuz alternatifleri ile değiştirilir. \newline Malzemeler alternatifleri ile değiştirilir. \\
+\hline
+7 & Elektriksel bağlantılar yapılırken güvenlik riskleri & IEEE elektrik güvenlik standartlarına uygun olarak çalışma yürütülür. \\
+\hline
+8 & Test sonuçlarının ve sistem performansının istenilen değerde olmaması & Teori ve tasarım gözden geçirilir, performansı artıracak geliştirmeler yapılır. Kullanılan malzemeler daha iyileriyle değiştirilir. \\
+\hline
+9 & Kitaba zarar gelmesi & Kitap, yeniden basıma uygun bir şekilde dijital ortamda saklanır. \\
+\hline
+\end{tabular}
+\end{table}
+
+\newpage
+
+\subsection{İş Paketleri Organizasyonu ve Çalışma Yönetimi}
+
+Proje yönetimi, iş paketlerinin zamanında ve planlandığı şekilde tamamlanmasını sağlamak için 2 haftada bir toplantılar düzenlenmiştir. Bu toplantılarla ilerleme değerlendirilip sorunlar tartışılmıştır. Acil durumlar için çevrimiçi iletişim araçları kullanılmıştır.
+
+Tanımlı riskler düzenli gözden geçirilmiştir ve gerektiğinde B planları devreye alınacaktır. Ara testlerle iş paketlerinin çıktıları değerlendirilip kalite kontrolü sağlanacak, proje sonunda tüm çalışmalar kalite kriterlerine göre değerlendirilecektir.
+
+İş paketleri dağılımı \ref{table:iş_paketleri}de görülmektedir.
+
+
+\begin{table}[H]
+\captionsetup{justification=raggedright, singlelinecheck=false, margin=0.5cm}
+\centering
+\caption{İş Paketleri Dağılımı}
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{İş Paketi Lideri}   & \textbf{Lider Olunan İş Paketleri} & \textbf{Bulunduğu İş Paketi Sayısı} \\ \hline
+Taha Ramazan Uysal         & 1, 5, 6                             & 8 \\ \hline
+Engin Kaya                 & 2, 4, 7                             & 9 \\ \hline
+İdrishan Kanber           & 3, 9                                & 9 \\ \hline
+\end{tabular}
+\label{table:iş_paketleri}
+\end{table}
+
+
+
+
+\begin{comment}
+İlk 5 iş paketi Mühendislik Tasarımı, son 5 iş paketi de Bitirme Projesi
+ile ilgilidir. Projede görev alan öğrenciler bu iş paketlerine sırayla
+liderlik yapmalı ve sorumlu oldukları iş pakketinin vaktinde
+tamamlanması konusunda o iş paketin de görevli diğer öğrencileri
+uyarmalıdır. Her öğrenci en az bir iş paketinde liderlik görevi yapmalı
+ve sorumluluk üstlenerek diğer öğrencilere neler yapmaları gerektiğini
+anlatarak için bitmesini sağlamalıdır.
+
+Hangi iş paketine kimin liderlik edeceği; o iş paketinde görevli diğer
+öğrencilerden kimin hangi işi nekadar sürede yapacağı bu alt başlık
+altında detaylıca verilmelidir.
+\end{comment}
+
+

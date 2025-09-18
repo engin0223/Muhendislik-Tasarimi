@@ -1,0 +1,161 @@
+\newcommand{\drawNN}[6]{
+
+
+\begin{tikzpicture}[
+    neuron/.style={circle, draw, minimum size=0.5cm, inner sep=0},
+    arrow/.style={->, thick},
+    align=center
+]
+
+
+% Base coordinates
+\def\layers{#1} % Example: 3 input, 4 hidden, 3 hidden, 1 output
+\def\labels{#2}
+\def\features{#3}
+\def\xstart{0}    % X-coordinate for the first layer
+\def\layersep{#4}  % Horizontal separation between layers
+\def\ysep{#5}    % Vertical separation between neurons
+\def\maxneuron{#6} % Threshold for number of neurons to display
+\pgfmathsetmacro{\mn}{int((\maxneuron-1)/2)}
+\pgfmathsetmacro{\ys}{int((\maxneuron+1)/2)}
+
+
+
+\foreach \i [count=\n from 1] in \layers {
+    \ifnum\n = 1
+        \foreach \feature [count=\n from 1] in \features {
+            \pgfmathsetmacro{\yshift}{- (\i + 1) * \ysep / 2}
+            \node[] at (-2, \yshift + \n*\ysep) {\feature};
+        }
+    \fi
+}
+
+
+% Process layers and neurons
+\foreach \i [count=\n from 1] in \layers {
+    % Calculate the x-coordinate for the layer
+    \pgfmathsetmacro{\xpos}{\xstart + (\n-1)*\layersep}
+    
+    % Draw neurons for the current layer and store node names in a list
+    \ifnum\i > \maxneuron
+        % Calculate vertical starting position for the neurons
+        \pgfmathsetmacro{\yshift}{-\ys*\ysep}
+        
+        % Draw four neurons for the current layer
+        \foreach \m in {1,2,...,\mn} {
+            \pgfmathsetmacro{\t}{int(\maxneuron-\m)}
+            \node[neuron] (L\n N\m) at (\xpos, \yshift + \m*\ysep) {};  % Node name L<layer> N<neuron>
+            \node[neuron] (L\n N\t) at (\xpos, \m*\ysep) {};
+        }
+        % Add vertical ellipsis between second and third neuron
+        \node at (\xpos, 0.125) {\huge$\vdots$};
+    \else
+        % Calculate vertical starting position for the neurons
+        \pgfmathsetmacro{\yshift}{- (\i + 1) * \ysep / 2}
+        
+        
+        % Draw all neurons for the current layer
+        \foreach \m in {1,...,\i} {
+            \node[neuron] (L\n N\m) at (\xpos, \yshift + \m*\ysep) {};  % Node name L<layer> N<neuron>
+        }
+    \fi
+}
+
+
+% Add layer labels
+\foreach \a [count=\m from 1] in \layers {
+    \foreach \label [count=\n from 1] in \labels {
+        \ifnum\n= \m
+            \pgfmathsetmacro{\xpos}{(\n-1)*\layersep}
+            \ifnum\a > \maxneuron
+                % Calculate vertical starting position for the neurons
+                \pgfmathsetmacro{\yshift}{-\maxneuron*\ysep/2}
+            \else
+                % Calculate vertical starting position for the neurons
+                \pgfmathsetmacro{\yshift}{-\a*\ysep/2}
+            \fi
+            \node[align=center] at (\xpos, \yshift - \ysep) {\label};
+        \fi
+    }
+}
+
+
+% Loop through the list using pgffor
+\foreach \i [count=\n] in \layers {
+    \foreach \j [count=\m] in \layers {
+        \ifnum\m=\numexpr\n+1\relax
+            \ifnum\i > \maxneuron
+                \pgfmathsetmacro{\ie}{\maxneuron-1}
+                \ifnum\j > \maxneuron
+                    \pgfmathsetmacro{\je}{\maxneuron-1}
+                    \foreach \k in {0,...,\ie} {
+                        \foreach \p in {0,...,\je} {
+                            \ifnum \numexpr2*\k = \ie 
+                            \else
+                                \ifnum \numexpr2*\p = \je 
+                                \else
+                                \pgfmathsetmacro{\xpos}{\xstart + (\n-1)*\layersep}
+                                \pgfmathsetmacro{\yshift}{-\ys*\ysep}
+                                
+                                \pgfmathsetmacro{\nextlayer}{int(\n+1)}
+                                \draw[->, >=stealth] (\xpos + 0.25, \yshift + \k*\ysep + \ysep) .. controls (\xpos + \layersep / 2, \yshift + 3*\k*\ysep/4 + \p * \ysep / 4 + \ysep) and (\xpos + \layersep / 2, \yshift + 3*\p*\ysep / 4 + \k * \ysep / 4 + \ysep) .. (\xpos - 0.25 + \layersep, \yshift + \p*\ysep + \ysep);
+                                \fi
+                            \fi
+                        }
+                    }
+                \else
+                    \pgfmathsetmacro{\je}{\j}
+                    \foreach \k in {0,...,\ie} {
+                        \foreach \p in {1,...,\je} {
+                            \ifnum \numexpr2*\k = \ie 
+                            \else
+                            \pgfmathsetmacro{\xpos}{\xstart + (\n-1)*\layersep}
+                            \pgfmathsetmacro{\yshiftl}{- \ys * \ysep}
+                            \pgfmathsetmacro{\yshiftr}{- (\je+1) * \ysep / 2}
+                            
+                            
+                            \pgfmathsetmacro{\nextlayer}{int(\n+1)}
+                            \draw[->, >=stealth] (\xpos + 0.25, \yshiftl + \k*\ysep + \ysep) .. controls (\xpos + \layersep / 2, 3*\yshiftl/4 + 3*\k*\ysep/4 + 3*\ysep/4 + \yshiftr/4 + \p*\ysep/4) and (\xpos + \layersep / 2, 3*\yshiftr/4 + 3*\p*\ysep/4 + \yshiftl/4 + \k*\ysep/4 + \ysep / 4) .. (\xpos - 0.25 + \layersep, \yshiftr + \p*\ysep);
+                            \fi
+                        }
+                    }
+                \fi
+            \else
+                \pgfmathsetmacro{\ie}{\i}
+                \ifnum\j > \maxneuron
+                    \pgfmathsetmacro{\je}{\maxneuron-1}
+                    \foreach \k in {1,...,\ie} {
+                        \foreach \p in {0,...,\je} {
+                            \ifnum \numexpr2*\p = \je 
+                            \else
+                            \pgfmathsetmacro{\xpos}{\xstart + (\n-1)*\layersep}
+                            \pgfmathsetmacro{\yshiftl}{- (\ie + 1) * \ysep / 2}
+                            \pgfmathsetmacro{\yshiftr}{-\ys * \ysep}
+                            
+                            
+                            \pgfmathsetmacro{\nextlayer}{int(\n+1)}
+                            \draw[->, >=stealth] (\xpos + 0.25, \yshiftl + \k*\ysep) .. controls (\xpos + \layersep / 2, 3*\yshiftl/4 + 3*\k*\ysep/4 + \yshiftr/4 + \p*\ysep/4 + \ysep/4) and (\xpos + \layersep / 2, 3*\yshiftr/4 + 3*\p*\ysep/4 + 3*\ysep/4 + \yshiftl/4 + \k*\ysep/4) .. (\xpos - 0.25 + \layersep, \yshiftr + \p*\ysep + \ysep);
+                            \fi
+                        }
+                    }
+                \else
+                    \pgfmathsetmacro{\je}{\j}
+                    \foreach \k in {1,...,\ie} {
+                        \foreach \p in {1,...,\je} {
+                            \pgfmathsetmacro{\xpos}{\xstart + (\n-1)*\layersep}
+                            \pgfmathsetmacro{\yshiftl}{- (\ie + 1) * \ysep / 2}
+                            \pgfmathsetmacro{\yshiftr}{- (\je + 1) * \ysep / 2}
+                            
+                            \pgfmathsetmacro{\nextlayer}{int(\n+1)}
+                            \draw[->, >=stealth] (\xpos + 0.25, \yshiftl + \k*\ysep) .. controls (\xpos + \layersep / 2, 3*\yshiftl/4 + 3*\k*\ysep/4 + \yshiftr/4 + \p*\ysep/4) and (\xpos + \layersep / 2, 3*\yshiftr/4 + 3*\p*\ysep/4 + \yshiftl/4 + \k*\ysep/4) .. (\xpos - 0.25 + \layersep, \yshiftr + \p*\ysep);
+                        }
+                    }
+                \fi
+            \fi
+        \fi
+    }
+}
+
+
+\end{tikzpicture}
+}

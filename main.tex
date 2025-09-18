@@ -1,0 +1,269 @@
+% Options for packages loaded elsewhere
+% =======================================
+\PassOptionsToPackage{unicode}{hyperref} % Allow Unicode characters in links
+\PassOptionsToPackage{hyphens}{url} % Enable hyphenation for long URLs
+
+% Document Class
+% ==============
+\documentclass[12pt]{article} % Set the document class to article with 12pt font size
+
+% Package Imports
+% ===============
+% General utilities
+\usepackage{verbatim} % For multi-line comments
+\usepackage{amsmath, amssymb} % For mathematical symbols and equations
+\usepackage{float} % For better figure and table positioning
+\usepackage{graphicx} % For including images
+\usepackage{newtxtext} % For Times New Roman font
+\usepackage{lmodern} % For improved font rendering
+\usepackage{textcomp} % For special text symbols
+\usepackage[utf8]{inputenc} % For UTF-8 encoding
+\usepackage[T1]{fontenc} % For better font encoding
+\usepackage{xcolor} % For colored text
+\usepackage{pdflscape} % For landscape figures
+\usepackage{pdfpages} % For including PDF files
+\usepackage{siunitx}
+\usepackage{spreadtab}
+\usepackage{subcaption}
+\usepackage[numbers,super]{natbib}
+\usepackage{sectsty}
+
+% TikZ for Diagrams
+\usepackage{tikz} % Import TikZ for graphics and diagrams
+\usetikzlibrary{shapes.geometric, calc, decorations.pathreplacing} % Load TikZ libraries for shapes and path decorations
+
+% Bibliography Management
+\usepackage[
+  backend=biber, % Use biber for bibliography management
+  sorting=ynt, % Sort bibliography by year, name, title
+  maxnames=99, %
+  sorting=none, %
+  defernumbers=true %
+]{biblatex}
+\addbibresource{ref.bib} % Add bibliography file
+\DefineBibliographyStrings{english}{
+  in = {}
+}
+\DeclareFieldFormat[book]{title}{\mkbibquote{#1}}
+\DeclareFieldFormat{url}{(#1)}
+\DeclareBibliographyDriver{misc}{%
+    \ifentrytype{misc}{%
+      \printfield{author}%
+      \newunit\newblock
+      \printfield{title}%
+      \newunit\newblock
+      \printfield{url}%
+      \newunit\newblock
+      \printfield{note}%
+    }{}}
+\renewcommand*{\finentrypunct}{}
+
+% Glossary and Acronyms
+\usepackage[acronym, nonumberlist]{glossaries} % For glossary and acronyms
+\makeglossaries
+\input{Ekstra/acronyms} % Include acronyms file
+
+% Geometry and Page Layout
+% ========================
+\usepackage[a4paper, top=3cm, bottom=2.5cm, left=3cm, right=2.5cm]{geometry} % Set page dimensions
+\usepackage{indentfirst} % Indent the first paragraph of each section
+\usepackage{setspace} % For line spacing
+\setlength{\emergencystretch}{3em} % Stretch lines to avoid overfull warnings
+
+% Customizing Titles and Spacing
+% ==============================
+\usepackage{titlesec} % For title formatting
+\titlespacing*{\section}{20.5pt}{0pt}{0pt} % Section title spacing
+
+\sectionfont{\fontsize{14}{0}\selectfont}
+
+\titlespacing*{\subsection}{20.5pt}{12pt}{0pt} % Subsection title spacing
+\titlespacing*{\subsubsection}{20.5pt}{12pt}{0pt} % Subsubsection title spacing
+\titlespacing*{\figure}{0pt}{24pt}{24pt} % Figure title spacing
+\setlength{\intextsep}{24pt} % Space above and below in-line figures
+
+% Caption Customization
+% =====================
+\usepackage{caption} % For captions
+\numberwithin{figure}{section} % Number figures by section
+\renewcommand{\figurename}{} % Remove default figure prefix
+\renewcommand{\thefigure}{Şekil \thesection.\arabic{figure}. } % Custom figure numbering
+\captionsetup[figure]{format=hang, labelsep=none} % Adjust figure caption format
+\numberwithin{table}{section} % Number tables by section
+\renewcommand{\tablename}{} % Remove default table prefix
+\renewcommand{\thetable}{Çizelge \thesection.\arabic{table}. } % Custom table numbering
+\captionsetup[table]{format=hang, labelsep=none} % Adjust table caption format
+
+% Table of Contents and Lists Formatting
+% ======================================
+\usepackage{tocloft} % For customizing table of contents
+\setlength{\cftparskip}{0pt} % No extra space between entries
+\setlength{\cftbeforesecskip}{0pt} % No extra space before section entries
+\setlength{\cftsecindent}{0pt} % No indentation for sections
+\setlength{\cftsubsecindent}{1.5em} % Indentation for subsections
+\setlength{\cftsubsubsecindent}{3em} % Indentation for subsubsections
+\renewcommand{\contentsname}{\hspace*{\fill}İÇİNDEKİLER\hspace*{\fill}}
+\renewcommand{\cftdotsep}{1.5} % Adjust dot separation
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}} % Adjust dot alignment
+\setcounter{tocdepth}{3} % Include up to subsubsections in the ToC
+
+% List of Figures and Tables Formatting
+% =====================================
+\setlength{\cftfigindent}{0pt} % No indentation for figure numbers
+\setlength{\cftfignumwidth}{2cm} % Adjust to the width of "\u{S}ekil"
+\setlength{\cfttabindent}{0pt} % No indentation for table numbers
+\setlength{\cfttabnumwidth}{2.5cm} % Adjust to the width of "\u{C}izelge"
+
+% Hyperlinks and Bookmarks
+% ========================
+\usepackage{hyperref} % For hyperlinks
+\hypersetup{
+  hidelinks, % Hide link borders
+  pdfcreator={LaTeX via pandoc} % Metadata for PDF
+}
+
+% Additional Utilities
+% ====================
+\usepackage{algpseudocode} % For pseudocode environments
+\usepackage{tcolorbox} % For colored boxes
+\usepackage{trivfloat} % For creating new float types
+\usepackage{calc} % For width and height calculations
+\usepackage{xurl} % Enable URL line breaks
+\urlstyle{same} % Disable monospaced font for URLs
+\usepackage{longtable, booktabs, array} % For tables
+
+% Mathematical Equations Numbering
+% =================================
+\numberwithin{equation}{section} % Number equations by section
+\renewcommand{\eqref}[1]{Denklem (\ref{#1})}
+
+% Graphics and Figures
+% ====================
+\graphicspath{ {./media/} } % Path for figure files
+\makeatletter
+\def\maxheight{
+  \ifdim\Gin@nat@height>\textheight
+    \textheight
+  \else
+    \Gin@nat@height
+  \fi
+}
+\makeatother
+
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+
+% Other Included Files
+% =====================
+\input{Ekstra/drawDNN} % Include file for drawing DNN diagrams
+
+
+
+% Document start
+\begin{document}
+
+\thispagestyle{empty}
+
+% Title page
+\input{Ekstra/kapak}
+\newpage
+
+\thispagestyle{empty}
+
+\input{Ekstra/kapak}
+\newpage
+
+\setlength\parindent{20.5pt}
+\onehalfspacing
+
+% Page numbering in Roman
+\pagenumbering{roman}
+
+\newpage
+%\input{Ekstra/onay}
+\newpage
+
+\renewcommand{\cftsecfont}{\normalfont}
+\renewcommand{\cftsecpagefont}{\normalfont}
+
+\input{Ekstra/önsöz}
+\newpage
+
+
+\tableofcontents
+
+\phantomsection
+\addcontentsline{toc}{subsection}{\hspace{-1.5em} İÇİNDEKİLER }
+
+
+\newpage
+
+
+\input{Ekstra/özet}
+\newpage
+
+
+\glsaddall
+\phantomsection
+\renewcommand{\glspostdescription}{}
+\printglossary[type=\acronymtype, title=\centering SEMBOLLER VE KISALTMALAR]
+\addcontentsline{toc}{subsection}{\hspace{-1.5em} SEMBOLLER VE KISALTMALAR }
+
+
+\newpage
+
+% List of Figures
+\renewcommand{\cftloftitlefont}{\hfill\Large\bfseries}
+\renewcommand{\cftafterloftitle}{\hfill\vspace{0pt}\par\mbox{}\hfill{\normalfont}}
+\renewcommand{\listfigurename}{ŞEKİLLER DİZİNİ}
+\phantomsection
+\addcontentsline{toc}{subsection}{\hspace{-1.5em} ŞEKİLLER DİZİNİ }
+\listoffigures
+\newpage
+
+
+% List of Tables
+\renewcommand{\cftlottitlefont}{\hfill\Large\bfseries}
+\renewcommand{\cftafterlottitle}{\hfill\vspace{0pt}\par\mbox{}\hfill{\normalfont}}
+\renewcommand{\listtablename}{ÇİZELGELER DİZİNİ}
+\phantomsection
+\addcontentsline{toc}{subsection}{\hspace{-1.5em} ÇİZELGELER DİZİNİ }
+\listoftables
+
+
+\newpage
+
+
+% Page numbering in Arabic
+\pagenumbering{arabic}
+
+% Document sections
+\input{Başlıklar/giriş}
+\newpage
+\input{Başlıklar/teori}
+\newpage
+\input{Başlıklar/tasarım}
+\newpage
+\input{Başlıklar/simulasyon}
+\newpage
+\input{Başlıklar/deney}
+\newpage
+\input{Başlıklar/sonuçlar}
+\newpage
+\input{Başlıklar/değerlendirme}
+\newpage
+
+% References
+\phantomsection
+{\fontsize{12pt}{20pt}\selectfont \printbibliography[heading=bibintoc, title={\the\numexpr \thesection+1. KAYNAKLAR}]}
+
+
+% Appendix and other sections
+\newpage
+\input{Başlıklar/ekler}
+\newpage
+\input{Başlıklar/özgeçmiş}
+
+\end{document}
