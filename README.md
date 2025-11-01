@@ -86,7 +86,7 @@ Tüm referanslar `ref.bib` dosyasında saklanır ve tezde otomatik olarak `bibla
 
 ## 🎓 Lisans
 
-Bu proje akademik amaçlıdır ve \[Lisansı Buraya Ekleyin, örneğin CC BY-NC 4.0] lisansı altındadır.
+Bu proje akademik amaçlıdır.
 
 ---
 
